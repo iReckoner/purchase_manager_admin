@@ -1,0 +1,59 @@
+<div class="contact-container">
+  <div id="headerdrop">
+    <h2><b>Resturant Linkage</b></h2>
+  </div>
+    
+  
+    <dx-data-grid
+      id="gridContainer"
+      [height]="dynamicGridHeight"
+      keyExpr="PartyId"
+      [dataSource]="dataSource"
+      [showBorders]="true"
+      [showRowLines]="true"
+      [showColumnLines]="true"
+      [columnAutoWidth]="true"
+      [columnHidingEnabled]="false"
+      [allowColumnResizing]="true"
+      [allowColumnReordering]="true"
+      [rowAlternationEnabled]="true"
+      [paging]="{ pageSize: 25 }"
+      [pager]="{
+        showPageSizeSelector: true,
+        allowedPageSizes: [25, 50, 100],
+        showInfo: true
+      }"
+      [filterRow]="{ visible: true }"
+      [headerFilter]="{ visible: true }"
+      (onRowClick)="onEditClick($event)"
+      [focusedRowEnabled]="true"
+      [focusedRowIndex]="0"
+      (onContentReady)="onGridContentReady($event)"
+      (onFocusedRowChanged)="onFocusedRowChanged($event)">
+      
+      <dxo-search-panel [visible]="true" [width]="240"></dxo-search-panel>
+
+      <dxi-column caption="Resturant Id" dataField="PartyId"></dxi-column>
+      <dxi-column caption="Resturant Name" dataField="PartyName"></dxi-column>
+      <dxi-column caption="Resturant Group Name" dataField="PartyGroupName"></dxi-column>
+      <dxi-column caption="Company Name" dataField="PerAdd1"></dxi-column>
+      <dxi-column caption="Mobile Number" dataField="PerTelephone"></dxi-column>
+      <dxi-column caption="Address" dataField="PerAdd2"></dxi-column>
+      <dxi-column caption="City" dataField="PerCity"></dxi-column>
+      <dxi-column caption="State" dataField="PerState"></dxi-column>
+      <dxi-column caption="Email" dataField="PerEmail"></dxi-column>
+
+      
+    </dx-data-grid>
+    
+    <dx-load-panel
+      [position]="{ of: '#gridContainer' }"
+      [(visible)]="loading"
+      [showPane]="true"
+      [showIndicator]="true">
+    </dx-load-panel>
+    
+  
+    
+  </div>
+  

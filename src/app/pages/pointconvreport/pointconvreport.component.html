@@ -1,0 +1,67 @@
+<div class="report-container" [class.loading]="isLoading">
+    <div class="filter-toolbar" id="headerdrop">
+      <div class="filter-row">
+        <h2>Points Conversion report</h2>
+        <div class="loader-container" *ngIf="isLoading">
+          <div class="loader"></div>
+          <span>Loading...</span>
+        </div>
+        <!-- <dx-select-box
+          label="Date Filter"
+          [items]="dateFilterOptions"
+          (onValueChanged)="onDateFilterChange($event)">
+        </dx-select-box> -->
+        <dx-date-box
+          label="Select Date"
+          [value]="selectedDate"
+          (onValueChanged)="onDateChange($event)"
+          type="date"
+          displayFormat="dd/MM/yyyy"
+          [showClearButton]="true"
+          [useMaskBehavior]="true"
+          [dropDownOptions]="{ width: 'auto' }"
+          [showDropDownButton]="true"
+          pickerType="calendar"
+          stylingMode="outlined">
+        </dx-date-box>
+        <dx-button
+          text="Refresh"
+          type="default"
+          (onClick)="refreshReport()">
+        </dx-button>
+        <dx-button
+          [disabled]="this.reportData.length < 1"
+          text="update"
+          type="default"
+          (onClick)="updateReport()">
+        </dx-button>
+      </div>
+    </div>
+  
+    <div class="grid-section">
+      <dx-data-grid
+        [dataSource]="reportData"
+        [showBorders]="true"
+        [height]="dynamicGridHeight"
+        [width]="'100%'"
+        [columnAutoWidth]="true"
+        (onContentReady)="onGridContentReady($event)">
+        <!-- Columns will be defined based on the data structure -->
+         <!-- <dxi-column dataField="CompanyId" caption="Company Id"></dxi-column> -->
+         <dxi-column dataField="RVNumber" caption="RV Number"></dxi-column>
+         <dxi-column dataField="RVDate" caption="RV Date" dataType="date" format="dd/MM/yyyy"></dxi-column>
+         <dxi-column dataField="Amount" caption="Amount" dataType="number" format="#,##0.00"></dxi-column>
+         <dxi-column dataField="PartyName" caption="Party Name"></dxi-column>
+         <dxi-column dataField="PmtDays" caption="Credit Days" dataType="number" format="#,##0."></dxi-column>
+         <dxi-column dataField="GreenPoint" caption="Points"></dxi-column>
+         <dxi-column dataField="Bonus3x" caption="3x Bonus" dataType="number" format="#,##0.00"></dxi-column>
+         <dxi-column dataField="Bonus1x" caption="1x Bonus" dataType="number" format="#,##0.00"></dxi-column>
+         <dxi-column dataField="Total" caption="Total"></dxi-column>
+         <dxi-column dataField="Previous_Month_Outstanding" caption="Previous_Month_Outstanding" dataType="number" format="#,##0.00"></dxi-column>
+         <dxi-column dataField="ThisMonthNetSales" caption="ThisMonthNetSales" dataType="number" format="#,##0.00"></dxi-column>
+         <dxi-column dataField="ThisMonthReceiptAmt" caption="ThisMonthReceiptAmt" dataType="number" format="#,##0.00"></dxi-column>
+         <dxi-column dataField="BalanceDue" caption="BalanceDue" dataType="number" format="#,##0.00"></dxi-column>
+      </dx-data-grid>
+    </div>
+</div>
+  

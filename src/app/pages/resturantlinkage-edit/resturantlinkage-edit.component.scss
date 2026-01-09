@@ -1,0 +1,31 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+  }
+  
+  .content-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #formContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  dx-form {
+    flex: 1;
+  }
+  
+  .form-actions {
+    margin-top: auto;
+    padding: 16px 0;
+    text-align: right;
+    border-top: 1px solid #e0e0e0;
+    background: #f8f9fa;
+    position: sticky;
+    bottom: 0;
+  }

@@ -1,0 +1,82 @@
+<div class="report-container" [class.loading]="isLoading">
+  <div class="filter-toolbar" id="headerdrop">
+    <div class="filter-row">
+      <h2>Points Ledger</h2>
+      <div class="loader-container" *ngIf="isLoading">
+        <div class="loader"></div>
+        <span>Loading...</span>
+      </div>
+      <!-- <dx-select-box
+        label="Date Filter"
+        [items]="dateFilterOptions"
+        (onValueChanged)="onDateFilterChange($event)">
+      </dx-select-box> -->
+      <dx-number-box
+        label="Year"
+        [value]="selectedYear"
+        (onValueChanged)="onYearChange($event)"
+        [min]="2000"
+        [max]="2100"
+        [showSpinButtons]="true">
+      </dx-number-box>
+      <dx-select-box
+        label="Month"
+        [items]="months"
+        [value]="selectedMonth"
+        (onValueChanged)="onMonthChange($event)"
+        displayExpr="name"
+        valueExpr="value">
+      </dx-select-box>
+      <dx-button
+        text="Refresh"
+        type="default"
+        (onClick)="refreshReport()">
+      </dx-button>
+      <dx-button
+        [disabled]="this.reportData.length < 1"
+        text="update"
+        type="default"
+        (onClick)="updateReport()">
+      </dx-button>
+    </div>
+    <!-- <div>
+      <dx-tag-box
+        [dataSource]="contacts"
+        displayExpr="Name"
+        valueExpr="Id"
+        [searchEnabled]="true"
+        [showClearButton]="true"
+        [showDropDownButton]="true"
+        [dropDownOptions]="{ width: 300, hideOnOutsideClick: true }"
+        [width]="350"
+        [height]="50"
+        [stylingMode]="'outlined'"
+        label="Contacts"
+        [showSelectionControls]="true"
+        [searchMode]="'contains'"
+        [searchExpr]="'Name'"
+        [searchTimeout]="200"
+        [(value)]="selectedContacts">
+        <dxo-selection
+          showCheckBoxesMode="always"
+          mode="all">
+        </dxo-selection>
+      </dx-tag-box>
+    </div> -->
+  </div>
+
+  <div class="grid-section">
+    <dx-data-grid
+      [dataSource]="reportData"
+      [showBorders]="true"
+      [height]="dynamicGridHeight"
+      (onContentReady)="onGridContentReady($event)">
+      <!-- Columns will be defined based on the data structure -->
+       <dxi-column dataField="DocSlNo" caption="Invoice No"></dxi-column>
+       <dxi-column dataField="DocDate" caption="Doc Date" dataType="date" format="dd/MM/yyyy"></dxi-column>
+       <dxi-column dataField="GreyPoints" caption="Grey Point" dataType="number" format="#,##0.00"></dxi-column>
+       <dxi-column dataField="Amount" caption="Amount" dataType="number" format="#,##0.00"></dxi-column>
+       <dxi-column dataField="ContactId" caption="ContactId"></dxi-column>
+    </dx-data-grid>
+  </div>
+</div>

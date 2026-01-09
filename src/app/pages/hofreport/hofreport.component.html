@@ -1,0 +1,73 @@
+<div class="report-container" [class.loading]="isLoading">
+    <div class="filter-toolbar" id="headerdrop">
+      <div class="filter-row">
+        <h2>Hall of Fame</h2>
+        <div class="loader-container" *ngIf="isLoading">
+          <div class="loader"></div>
+          <span>Loading...</span>
+        </div>
+        <dx-number-box
+          label="Year"
+          [value]="selectedYear"
+          (onValueChanged)="onYearChange($event)"
+          [min]="2000"
+          [max]="2100"
+          [showSpinButtons]="true">
+        </dx-number-box>
+        <dx-select-box
+          label="Month"
+          [items]="months"
+          [value]="selectedMonth"
+          (onValueChanged)="onMonthChange($event)"
+          displayExpr="name"
+          valueExpr="value">
+        </dx-select-box>
+        <dx-button
+          text="Refresh"
+          type="default"
+          (onClick)="refreshReport()">
+        </dx-button>
+      </div>
+    </div>
+  
+    <div class="grid-section">
+      <dx-data-grid
+      keyExpr="Id"
+      [height]="dynamicGridHeight"
+      [dataSource]="reportData"
+      [showBorders]="true"
+      [showRowLines]="true"
+      [showColumnLines]="true"
+      [columnAutoWidth]="true"
+      [columnHidingEnabled]="false"
+      [allowColumnResizing]="true"
+      [allowColumnReordering]="true"
+      [rowAlternationEnabled]="true"
+      [paging]="{ pageSize: 25 }"
+      [pager]="{
+        showPageSizeSelector: true,
+        allowedPageSizes: [25, 50, 100],
+        showInfo: true
+      }"
+      [filterRow]="{ visible: true }"
+      [headerFilter]="{ visible: true }"
+      (onRowClick)="onEditClick($event)"
+      [focusedRowEnabled]="true"
+      [focusedRowIndex]="0"
+      (onContentReady)="onGridContentReady($event)"
+      (onFocusedRowChanged)="onFocusedRowChanged($event)">
+  
+        <dxi-column width="100" dataField="ContactId" caption="Contact ID"></dxi-column>
+        <dxi-column dataField="ContactName" caption="Contact Name"></dxi-column>
+        <dxi-column dataField="Hall_of_fame_name" caption="Winner Type"></dxi-column>
+        <dxi-column dataField="Amount" caption="Amount" dataType="number" format="#,##0.00"></dxi-column>
+        <dxi-column dataField="no_of_subcategory" caption="No of SKU" dataType="number" format="#,##0.00"></dxi-column>
+
+        <dxi-column dataField="progress_percent" caption="Growth Percent" dataType="number" format="#,##0.00"></dxi-column>
+        
+        <dxi-column dataField="Ticket_id" caption="Ticket Id"></dxi-column>
+        <dxi-column dataField="Ticket_Amount" caption="Ticket Amount" dataType="number" format="#,##0.00"></dxi-column>
+      </dx-data-grid>
+    </div>
+  </div>
+  

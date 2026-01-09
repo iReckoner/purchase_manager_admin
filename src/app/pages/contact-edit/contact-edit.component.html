@@ -1,0 +1,132 @@
+<div class="content-block">  
+  <dx-load-panel
+    [position]="{ of: '#formContainer' }"
+    [(visible)]="loading"
+    [showPane]="true"
+    [showIndicator]="true">
+  </dx-load-panel>
+
+  <div id="formContainer">
+    <dx-form
+      [formData]="currentContact"
+      (onContentReady)="onFormContentReady($event)">
+      
+      <!-- Profile Image -->
+      <dxi-item itemType="group">
+        <div class="profile-image-container">
+          <div class="image-wrapper" (click)="onImageChange()">
+            <img 
+              [src]="contactImageUrl || defaultImageUrl" 
+              alt="Profile Image" 
+              class="profile-image"
+              (error)="handleImgError($event)"
+              tabindex="0"
+              role="button"
+              [attr.aria-label]="'Change profile image'"
+              title="Click to change image">
+            <div class="camera-icon">
+              <i class="dx-icon-photo" style="color: white; font-size: 16px;"></i>
+            </div>
+          </div>
+        </div>
+      </dxi-item>
+      <input 
+        #fileInput
+        type="file" 
+        style="display: none" 
+        accept="image/*"
+        (change)="onFileSelected($event)">
+      
+      <!-- Basic Information -->
+      <dxi-item itemType="group" colCount="3">
+        <dxi-item dataField="ContactName" [editorOptions]="{ disabled: loading }">
+          <dxi-validation-rule type="required" message="Contact name is required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="Designation" [editorOptions]="{ disabled: true }">
+          <dxi-validation-rule type="required" message="Contact name is required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="Department" [editorOptions]="{ disabled: true }">
+          <dxi-validation-rule type="required" message="Contact name is required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="Email" [editorOptions]="{ disabled: loading }">
+          <dxi-validation-rule type="email" message="Email is invalid"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="Phone" [editorOptions]="{disabled: loading }">
+          <dxi-validation-rule type="pattern" [pattern]="phonePattern" message="Phone number is invalid"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="AlternatePhone" [editorOptions]="{disabled: loading }">
+          <dxi-validation-rule type="pattern" [pattern]="phonePattern" message="Phone number is invalid"></dxi-validation-rule>
+        </dxi-item>
+
+        <dxi-item dataField="AddressLine1" [editorOptions]="{ disabled: loading }"></dxi-item>
+        <dxi-item dataField="AddressLine2" [editorOptions]="{ disabled: loading }"></dxi-item>
+        <dxi-item dataField="City" [editorOptions]="{ disabled: loading }"></dxi-item>
+        <dxi-item dataField="State" [editorOptions]="{ disabled: loading }"></dxi-item>
+        <dxi-item dataField="CountryId" [editorOptions]="{ disabled: loading }"></dxi-item>
+        <dxi-item dataField="PinCode" [editorOptions]="{ disabled: loading }"></dxi-item>
+        <dxi-item dataField="BankAccountNo" caption="Bank Account No" [editorOptions]="{ disabled: loading }">
+        </dxi-item>
+        <dxi-item dataField="IfscCode"  [editorOptions]="{ disabled: loading }">
+          <dxo-label text="IFSC Code"></dxo-label>
+        </dxi-item>
+        <dxi-item dataField="BankName" [editorOptions]="{ disabled: loading }">
+          <dxo-label text="Bank Name"></dxo-label>
+        </dxi-item>
+        <dxi-item dataField="UPIId" [editorOptions]="{ disabled: loading }">
+          <dxo-label text="UPI Id"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+      <dxi-item itemType="tabbed">
+        <dxi-tab title="Linked Restaurants">
+          <div class="restaurant-grid-container">
+            <dx-data-grid
+              id="restaurantGrid"
+              [dataSource]="linkedRestaurants"
+              [showBorders]="true"
+              [columnAutoWidth]="true"
+              [showColumnLines]="true"
+              [showRowLines]="true"
+              [rowAlternationEnabled]="true"
+              width="100%"
+              > 
+              
+              <dxi-column dataField="PartyId" [width]="150" caption="Resturant Id"></dxi-column>
+              <dxi-column dataField="PartyName" [width]="550" caption="Resturant Name"></dxi-column>
+              <dxi-column dataField="PerAdd1" [width]="550" caption="Company Name"></dxi-column>
+          
+            </dx-data-grid>
+          </div>
+        </dxi-tab>
+      </dxi-item>
+      
+      
+    </dx-form>
+    
+    <!-- Buttons outside form -->
+    <div class="form-actions">
+      <dx-button
+        text="Cancel"
+        stylingMode="outlined"
+        (onClick)="onCancel()"
+        [disabled]="loading">
+      </dx-button>
+      <dx-button
+        text="Save"
+        type="default"
+        stylingMode="contained"
+        (onClick)="onSaving()"
+        [disabled]="loading"
+        style="margin-left: 10px;">
+      </dx-button>
+    </div>
+    
+    <dx-load-panel
+      [visible]="loading"
+      [showPane]="true"
+      [showIndicator]="true"
+      [closeOnOutsideClick]="false">
+    </dx-load-panel>
+  </div>
+
+  
+</div>

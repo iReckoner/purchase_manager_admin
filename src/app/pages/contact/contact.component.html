@@ -1,0 +1,48 @@
+<div class="contact-container">
+  <div id="headerdrop">
+    <h2><b>Contacts</b></h2>
+  
+    <div class="toolbar">
+      <dx-button text="Add New Contact" stylingMode="contained" type="default" (onClick)="onAddClick()" icon="plus">
+      </dx-button>
+    </div>
+  </div>
+
+  <dx-data-grid
+    keyExpr="ContactId"
+    [height]="dynamicGridHeight"
+    [dataSource]="dataSource"
+    [showBorders]="true"
+    [showRowLines]="true"
+    [showColumnLines]="true"
+    [columnAutoWidth]="true"
+    [columnHidingEnabled]="false"
+    [allowColumnResizing]="true"
+    [allowColumnReordering]="true"
+    [rowAlternationEnabled]="true"
+    [paging]="{ pageSize: 25 }"
+    [pager]="{
+      showPageSizeSelector: true,
+      allowedPageSizes: [25, 50, 100],
+      showInfo: true
+    }"
+    [filterRow]="{ visible: true }"
+    [headerFilter]="{ visible: true }"
+    (onRowClick)="onEditClick($event)"
+    [focusedRowEnabled]="true"
+    [focusedRowIndex]="0"
+    (onContentReady)="onGridContentReady($event)"
+    (onFocusedRowChanged)="onFocusedRowChanged($event)">
+    
+    <dxo-search-panel [visible]="true" [width]="240"></dxo-search-panel>
+    
+  </dx-data-grid>
+  
+  <dx-load-panel
+    [position]="{ of: '#gridContainer' }"
+    [(visible)]="loading"
+    [showPane]="true"
+    [showIndicator]="true">
+  </dx-load-panel>
+  
+</div>

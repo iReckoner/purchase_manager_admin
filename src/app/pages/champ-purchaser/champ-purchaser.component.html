@@ -1,0 +1,80 @@
+<div class="report-container" [class.loading]="isLoading">
+    <div class="filter-toolbar" id="headerdrop">
+      <div class="filter-row">
+        <h2>Champ Purchaser</h2>
+        <div class="loader-container" *ngIf="isLoading">
+          <div class="loader"></div>
+          <span>Loading...</span>
+        </div>
+        <dx-number-box
+          label="Year"
+          [value]="selectedYear"
+          (onValueChanged)="onYearChange($event)"
+          [min]="2000"
+          [max]="2100"
+          [showSpinButtons]="true">
+        </dx-number-box>
+        <dx-select-box
+          label="Month"
+          [items]="months"
+          [value]="selectedMonth"
+          (onValueChanged)="onMonthChange($event)"
+          displayExpr="name"
+          valueExpr="value">
+        </dx-select-box>
+        <dx-button
+          text="Refresh"
+          type="default"
+          (onClick)="refreshReport()">
+        </dx-button>
+        <dx-button
+          [disabled]="this.reportData.length < 1"
+          text="update"
+          type="default"
+          (onClick)="updateReport()">
+        </dx-button>
+      </div>
+    </div>
+  
+    <div class="grid-section">
+      <dx-data-grid 
+        id="gridContainer"
+        keyExpr="contactId"
+        [height]="dynamicGridHeight"
+        [dataSource]="reportData"
+        [showBorders]="true"
+        [columnAutoWidth]="true"
+        [showRowLines]="true"
+        [showColumnLines]="false"
+        [rowAlternationEnabled]="true"
+        [allowColumnReordering]="true"
+        [allowColumnResizing]="true"
+        [columnResizingMode]="'nextColumn'"
+        [paging]="{
+          enabled: true,
+          pageSize: 10,
+          pageIndex: 0
+        }"
+        [pager]="{
+          showPageSizeSelector: true,
+          allowedPageSizes: [5, 10, 20],
+          showInfo: true,
+          showNavigationButtons: true
+        }"
+        [filterRow]="{ visible: true }"
+        [headerFilter]="{ visible: true }"
+        [selection]="{ mode: 'multiple' }"
+        [(selectedRowKeys)]="selectedRowKeys"
+        (onSelectionChanged)="onSelectionChanged($event)"
+        (onContentReady)="onGridContentReady($event)">
+        
+        <dxo-search-panel [visible]="true" [width]="240"></dxo-search-panel>
+        <dxi-column dataField="contactId" caption="Contact ID"></dxi-column>
+        <dxi-column dataField="contactName" caption="Contact Name"></dxi-column>
+        <dxi-column dataField="Sales" caption="Sales" dataType="number" format="#,##0.00"></dxi-column>
+        <dxi-column dataField="SalesReturn" caption="Sales Return" dataType="number" format="#,##0.00"></dxi-column>
+        <dxi-column dataField="TotalAmount" caption="Total Amount" dataType="number" format="#,##0.00"></dxi-column>
+      </dx-data-grid>
+    </div>
+  </div>
+  

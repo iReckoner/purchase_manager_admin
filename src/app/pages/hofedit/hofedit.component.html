@@ -1,0 +1,95 @@
+<div class="content-block">  
+    <dx-load-panel
+    [position]="{ of: '#formContainer' }"
+    [(visible)]="loading"
+    [showPane]="true"
+    [showIndicator]="true">
+  </dx-load-panel>
+  <div id="formContainer">
+    <dx-form
+      [formData]="currentEvent"
+      (onContentReady)="onFormContentReady($event)">
+      
+      <!-- Basic Information -->
+      <dxi-item itemType="group" colCount="3">
+        <dxi-item 
+          dataField="ContactName" 
+          editorType="dxTextBox"
+          [editorOptions]="{ disabled: true }">
+          <dxi-validation-rule type="required" message="Contact Name is required"></dxi-validation-rule>
+        </dxi-item>
+        
+        <dxi-item 
+          dataField="Hall_of_fame_name"
+          editorType="dxTextBox"
+          [editorOptions]="{ disabled: true }">
+          <dxo-label text="Winner Type"></dxo-label>
+          <dxi-validation-rule type="required" message=" required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item 
+          dataField="Amount"
+          editorType="dxNumberBox"
+          [editorOptions]="amountEditorOptions">
+          <dxi-validation-rule type="required" message=" required"></dxi-validation-rule>
+        </dxi-item>
+
+        <dxi-item 
+          dataField="no_of_subcategory"
+          editorType="dxNumberBox"
+          [editorOptions]="{ disabled: true }">
+          <dxo-label text="No of SKU"></dxo-label>
+          <dxi-validation-rule type="required" message=" required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item 
+          dataField="progress_percent"
+          editorType="dxNumberBox"
+          [editorOptions]="amountEditorOptions">
+          <dxo-label text="Growth Percent"></dxo-label>
+          <dxi-validation-rule type="required" message=" required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item 
+          dataField="Ticket_id"
+          editorType="dxTextBox">
+          <dxo-label text="Ticket Id"></dxo-label>
+          <dxi-validation-rule ></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item 
+          dataField="Ticket_Amount"
+          editorType="dxNumberBox"
+          [editorOptions]="ticketAmountEditorOptions">
+          <dxo-label text="Ticket Amount"></dxo-label>
+          <dxi-validation-rule></dxi-validation-rule>
+        </dxi-item>
+
+      </dxi-item>
+    </dx-form>
+    
+    <!-- Buttons outside form -->
+    <div class="form-actions">
+      <dx-button
+        text="Cancel"
+        stylingMode="outlined"
+        (onClick)="onCancel()"
+        [disabled]="loading">
+      </dx-button>
+      <dx-button
+        text="Save"
+        type="default"
+        stylingMode="contained"
+        (onClick)="onSaving()"
+        [disabled]="loading"
+        style="margin-left: 10px;">
+      </dx-button>
+    </div>
+    
+    <dx-load-panel
+      [visible]="loading"
+      [showPane]="true"
+      [showIndicator]="true"
+      [closeOnOutsideClick]="false">
+    </dx-load-panel>
+  </div>
+  
+    
+  </div>
+  

@@ -1,0 +1,99 @@
+<div class="content-block">  
+    <dx-load-panel
+    [position]="{ of: '#formContainer' }"
+    [(visible)]="loading"
+    [showPane]="true"
+    [showIndicator]="true">
+  </dx-load-panel>
+  <div id="formContainer">
+    <dx-form
+      [formData]="currentEvent"
+      (onContentReady)="onFormContentReady($event)">
+      
+      <!-- Basic Information -->
+      <dxi-item itemType="group" colCount="3">
+        <dxi-item 
+          dataField="tab" 
+          editorType="dxTextBox"
+          [editorOptions]="{ disabled: true }">
+          <dxi-validation-rule type="required" message="Tab is required"></dxi-validation-rule>
+        </dxi-item>
+
+        <dxi-item 
+            dataField="type" 
+            editorType="dxSelectBox"
+            [editorOptions]="{
+              dataSource: types,
+              displayExpr: 'name',
+              valueExpr: 'id',
+              searchEnabled: false,
+              placeholder: 'Select type',
+              disabled: loading || !currentEvent.tab
+            }">
+            <dxi-validation-rule type="required" message="Type is required"></dxi-validation-rule>
+        </dxi-item>
+
+        <!-- Items Multiselect -->
+        <dxi-item 
+            dataField="itemIds"
+            label="Add Item"
+            editorType="dxTagBox"
+            [editorOptions]="{
+              dataSource: items,
+              displayExpr: 'name',
+              valueExpr: 'id',
+              searchEnabled: true,
+              showSelectionControls: true,
+              applyValueMode: 'useButtons',
+              showClearButton: true,
+              placeholder: 'Select items...',
+              disabled: loading,
+              onValueChanged: onItemsChanged
+            }">
+            <dxi-validation-rule type="required" message="At least one item is required"></dxi-validation-rule>
+        </dxi-item>
+        
+        <dxi-item dataField="description" [editorOptions]="{disabled: loading }">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-item>
+        
+        <dxi-item dataField="Active">
+          <dx-check-box
+            text="Active"
+            [value]="currentEvent.Active === 'Y'"
+            (onValueChanged)="onActiveChanged($event)">
+          </dx-check-box>
+        </dxi-item>
+
+      </dxi-item>
+    </dx-form>
+    
+    <!-- Buttons outside form -->
+    <div class="form-actions">
+      <dx-button
+        text="Cancel"
+        stylingMode="outlined"
+        (onClick)="onCancel()"
+        [disabled]="loading">
+      </dx-button>
+      <dx-button
+        text="Save"
+        type="default"
+        stylingMode="contained"
+        (onClick)="onSaving()"
+        [disabled]="loading"
+        style="margin-left: 10px;">
+      </dx-button>
+    </div>
+    
+    <dx-load-panel
+      [visible]="loading"
+      [showPane]="true"
+      [showIndicator]="true"
+      [closeOnOutsideClick]="false">
+    </dx-load-panel>
+  </div>
+  
+    
+  </div>
+  

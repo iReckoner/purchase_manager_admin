@@ -1,0 +1,222 @@
+.content-block {
+    position: relative;
+    min-height: calc(100vh - 100px);
+    padding: 20px;
+  }
+  
+  .form-actions {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+    background: white;
+    width: calc(100% - 40px);
+    border-top: 1px solid #e0e0e0;
+    margin-top: 20px;
+  }
+  
+  .dx-form {
+    margin-bottom: 80px; /* Space for the fixed buttons */
+  }
+  
+  /* Ensure form takes full width */
+  #formContainer {
+    width: 100%;
+  }
+  .profile-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    .image-wrapper {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      
+      .profile-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #1a73e8;
+        display: block;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        padding: 2px;
+      }
+      
+      .camera-icon {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 32px;
+        height: 32px;
+        background-color: #1a73e8;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background-color: #1557b0;
+          transform: scale(1.1);
+        }
+      }
+    }
+    
+    .change-image-btn {
+      margin-top: 10px;
+    }
+  }
+
+  /* Tab Content */
+  .tab-content {
+    padding: 20px 0;
+  }
+
+  /* Restaurant Grid Styles */
+  .restaurant-grid-container {
+    padding: 20px 0;
+    
+    .link-restaurant-btn {
+      margin-bottom: 20px;
+    }
+    
+    ::ng-deep .dx-datagrid {
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      
+      .dx-datagrid-headers {
+        border-bottom: 2px solid #f0f0f0;
+      }
+      
+      .dx-row {
+        &.dx-row-focused {
+          background-color: rgba(25, 118, 210, 0.08);
+        }
+      }
+      
+      .dx-datagrid-rowsview {
+        .dx-row {
+          cursor: pointer;
+          transition: background-color 0.2s;
+          
+          &:hover {
+            background-color: rgba(0,0,0,0.03);
+          }
+        }
+      }
+    }
+  }
+  
+  /* Popup Styles */
+  ::ng-deep .dx-popup-wrapper {
+    .dx-popup-content {
+      padding: 0;
+      
+      .popup-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        
+        .popup-buttons {
+          display: flex;
+          justify-content: flex-end;
+          gap: 10px;
+          padding: 15px 20px;
+          border-top: 1px solid #e0e0e0;
+          background-color: #f9f9f9;
+          margin-top: auto;
+        }
+        
+        ::ng-deep .dx-datagrid {
+          border: none;
+          border-radius: 0;
+          
+          .dx-datagrid-rowsview {
+            min-height: 450px;
+          }
+        }
+      }
+    }
+  }
+
+  ::ng-deep .dx-layout-manager .dx-tabpanel .dx-multiview-item-content{
+    padding: 0px;
+  }
+  
+  /* Restaurant Links Styles */
+  .restaurant-links-container {
+    .no-links {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+      font-style: italic;
+    }
+
+    .restaurant-link-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 10px;
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-1px);
+      }
+
+      .restaurant-info {
+        flex: 1;
+        .restaurant-name {
+          font-weight: 500;
+          margin-bottom: 5px;
+          color: #333;
+        }
+        .restaurant-url {
+          a {
+            color: #1976d2;
+            text-decoration: none;
+            font-size: 0.9em;
+            word-break: break-all;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+
+      .restaurant-status {
+        margin-left: 15px;
+        .status-badge {
+          padding: 4px 8px;
+          border-radius: 12px;
+          font-size: 0.8em;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+
+          &.active {
+            background-color: #e6f7e6;
+            color: #2e7d32;
+          }
+
+          &.inactive {
+            background-color: #ffebee;
+            color: #c62828;
+          }
+        }
+      }
+    }
+  }

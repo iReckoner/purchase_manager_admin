@@ -1,0 +1,140 @@
+<div class="content-block">  
+    <dx-load-panel
+    [position]="{ of: '#formContainer' }"
+    [(visible)]="loading"
+    [showPane]="true"
+    [showIndicator]="true">
+  </dx-load-panel>
+  <div id="formContainer">
+    <dx-form
+      [formData]="currentEvent"
+      (onContentReady)="onFormContentReady($event)">
+      
+      <!-- Basic Information -->
+      <dxi-item itemType="group" colCount="3">
+        <dxi-item 
+          dataField="tab" 
+          editorType="dxSelectBox"
+          [editorOptions]="tabSelectBoxOptions">
+          <dxi-validation-rule type="required" message="Tab is required"></dxi-validation-rule>
+        </dxi-item>
+
+        <dxi-item 
+            dataField="type" 
+            editorType="dxSelectBox"
+            [editorOptions]="{
+              dataSource: types,
+              displayExpr: 'name',
+              valueExpr: 'id',
+              searchEnabled: false,
+              readOnly: currentEvent.tab === 'Banner',
+              showClearButton: currentEvent.tab !== 'Banner',
+              placeholder: 'Select type',
+              disabled: loading || !currentEvent.tab
+            }">
+            <dxi-validation-rule type="required" message="Contact is required"></dxi-validation-rule>
+        </dxi-item>
+
+        <dxi-item dataField="Active">
+          <dx-check-box
+            text="Active"
+            [value]="currentEvent.Active === 'Y'"
+            (onValueChanged)="onActiveChanged($event)">
+          </dx-check-box>
+        </dxi-item>
+
+      </dxi-item>
+      <dxi-item itemType="group" colCount="1">
+        <dxi-item dataField="description" [editorOptions]="{disabled: loading }">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+      <!-- Event Image Section -->
+      <dxi-item itemType="group" caption="Event Image" cssClass="event-image-section">
+        <div class="event-image-container">
+          <div class="image-preview" [class.has-image]="currentEvent.imageUrl">
+            <img 
+              [src]="currentEvent.imageUrl || 'assets/images/event-placeholder.png'" 
+              alt="Event Image" 
+              class="preview-image"
+              [title]="currentEvent.imageUrl ? 'Click to change image' : 'No image uploaded'">
+            
+            <div class="upload-overlay" (click)="triggerFileInput()">
+              <i class="dx-icon-upload"></i>
+              <span>Click to upload</span>
+            </div>
+            
+            <div class="image-actions" *ngIf="currentEvent.imageUrl">
+              <dx-button
+                icon="trash"
+                stylingMode="text"
+                (onClick)="removeImage()"
+                hint="Remove image"
+                class="remove-btn">
+              </dx-button>
+            </div>
+          </div>
+          
+          <div class="upload-controls">
+            <dx-button
+              text="Upload Image"
+              icon="upload"
+              stylingMode="contained"
+              type="default"
+              (onClick)="triggerFileInput()"
+              [disabled]="loading"
+              class="upload-button">
+            </dx-button>
+            
+            <div class="file-info" *ngIf="!currentEvent.imageUrl">
+              <div class="hint-text">
+                <i class="dx-icon-info"></i> 
+                <span>Recommended size: 800x450px</span>
+              </div>
+              <div class="file-types">
+                Supported formats: JPG, PNG, GIF (max 5MB)
+              </div>
+            </div>
+          </div>
+          
+          <input 
+            #fileInput
+            type="file" 
+            style="display: none" 
+            accept="image/*"
+            (change)="onFileSelected($event)">
+        </div>
+      </dxi-item>
+      
+      
+    </dx-form>
+    
+    <!-- Buttons outside form -->
+    <div class="form-actions">
+      <dx-button
+        text="Cancel"
+        stylingMode="outlined"
+        (onClick)="onCancel()"
+        [disabled]="loading">
+      </dx-button>
+      <dx-button
+        text="Save"
+        type="default"
+        stylingMode="contained"
+        (onClick)="onSaving()"
+        [disabled]="loading"
+        style="margin-left: 10px;">
+      </dx-button>
+    </div>
+    
+    <dx-load-panel
+      [visible]="loading"
+      [showPane]="true"
+      [showIndicator]="true"
+      [closeOnOutsideClick]="false">
+    </dx-load-panel>
+  </div>
+  
+    
+  </div>
+  

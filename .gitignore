@@ -2,8 +2,8 @@
 node_modules/
 
 # Angular build output
-dist/
-out-tsc/
+dist/   
+out-tsc/     
 
 # Angular cache
 .angular/

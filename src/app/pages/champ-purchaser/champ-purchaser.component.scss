@@ -44,6 +44,13 @@
         flex: 1 1 200px;
         min-width: 180px;
       }
+
+      /* Ensure dx-number-box is treated similarly */
+      dx-number-box,
+      .dx-numberbox {
+        flex: 1 1 200px;
+        min-width: 180px;
+      }
   
       .dx-button {
         height: 36px;
@@ -131,9 +138,11 @@
         dx-selectbox, 
         dx-datebox, 
         dx-tagbox,
+        dx-number-box,
         .dx-selectbox, 
         .dx-datebox, 
-        .dx-tagbox {
+        .dx-tagbox,
+        .dx-numberbox {
           flex: 1 1 calc(50% - 8px);
         }
       }
@@ -145,6 +154,10 @@
       padding: 10px;
     }
     
+    .grid-section {
+        padding: 10px;
+    }
+
     .filter-toolbar {
       padding: 12px;
       
@@ -154,13 +167,16 @@
         dx-selectbox, 
         dx-datebox, 
         dx-tagbox,
+        dx-number-box,
         .dx-selectbox, 
         .dx-datebox, 
         .dx-tagbox,
+        .dx-numberbox,
         .dx-button {
           flex: 1 1 100%;
+          min-width: 0;
+          margin-left: 0; /* Reset auto margin for buttons on mobile */
         }
       }
     }
   }
-  

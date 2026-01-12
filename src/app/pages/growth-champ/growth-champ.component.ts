@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ScreenService } from 'src/app/shared/services';
 
 @Component({
@@ -48,6 +48,18 @@ export class GrowthChampComponent implements OnInit {
     this.service.getDocmentInfo2('getContacts', {}).subscribe((data: any) => {
       this.contacts = data[0]['data'];
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.calculateGridHeight();
+  }
+
+  calculateGridHeight() {
+    const headerDrop = document.getElementById('headerdrop');
+    if (headerDrop) {
+      this.dynamicGridHeight = window.innerHeight - (headerDrop.clientHeight + 90);
+    }
   }
 
   onDateFilterChange(e: any): void {
@@ -166,11 +178,7 @@ export class GrowthChampComponent implements OnInit {
 
   onGridContentReady(e: any): void {
     debugger
-    const headerDrop = document.getElementById('headerdrop');
-    
-    if (headerDrop) {
-      this.dynamicGridHeight = window.innerHeight - (headerDrop.clientHeight + 90);
-    }
+    this.calculateGridHeight();
     
     const gridElement = e.component.getScrollable();
     // this.gridWidth = gridElement.scrollWidth();

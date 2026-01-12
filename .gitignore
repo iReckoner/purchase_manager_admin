@@ -1,5 +1,7 @@
 # Node modules
 node_modules/
+android/
+key_store/
 
 # Angular build output
 dist/   
